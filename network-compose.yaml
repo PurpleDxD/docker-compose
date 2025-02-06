@@ -1,0 +1,25 @@
+services:
+  cloudflared-tunnel:
+    image: cloudflare/cloudflared
+    container_name: cloudflared-tunnel
+    restart: unless-stopped
+    command: tunnel run
+    environment:
+      TUNNEL_TOKEN: ${TOKEN}
+      TUNNEL_DNS_UPSTREAM: ${DOH_URL},${DOH_URL_BACKUP}
+      TUNNEL_DNS_PORT: 5053
+      TUNNEL_DNS_ADDRESS: 0.0.0.0
+    volumes:
+      - ${HOME}/docker/cloudflared:/etc/cloudflared
+
+  nginx-proxy-manager:
+    image: jc21/nginx-proxy-manager:latest
+    container_name: nginx-proxy-manager
+    restart: unless-stopped
+    depends_on:
+      - cloudflared-tunnel
+    ports:
+      - 181:81
+    volumes:
+      - ${HOME}/docker/nginx-proxy-manager/data:/data
+      - ${HOME}/docker/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
