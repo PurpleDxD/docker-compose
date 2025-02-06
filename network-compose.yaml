@@ -10,7 +10,7 @@ services:
       TUNNEL_DNS_PORT: 5053
       TUNNEL_DNS_ADDRESS: 0.0.0.0
     volumes:
-      - ${HOME}/docker/cloudflared:/etc/cloudflared
+      - ${DOCKER_VOLUME_DIR}/cloudflared:/etc/cloudflared
 
   nginx-proxy-manager:
     image: jc21/nginx-proxy-manager:latest
@@ -21,5 +21,5 @@ services:
     ports:
       - 181:81
     volumes:
-      - ${HOME}/docker/nginx-proxy-manager/data:/data
-      - ${HOME}/docker/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+      - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/data:/data
+      - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
