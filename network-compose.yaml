@@ -5,16 +5,16 @@ networks:
       parent: eth0
     ipam:
       config:
-        - subnet: 10.10.20.0/24
-          gateway: 10.10.20.1
+        - subnet: 10.0.10.0/24
+          gateway: 10.0.10.1
   macvlan_dmz:
     driver: macvlan
     driver_opts:
       parent: eth0
     ipam:
       config:
-        - subnet: 10.0.10.0/24
-          gateway: 10.0.10.1
+        - subnet: 10.10.20.0/24
+          gateway: 10.10.20.1
 
 services:
   cloudflared-tunnel:
