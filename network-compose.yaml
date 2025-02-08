@@ -1,5 +1,13 @@
 networks:
-  macvlan_network:
+  macvlan_internal:
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      config:
+        - subnet: 10.10.20.0/24
+          gateway: 10.10.20.1
+  macvlan_dmz:
     driver: macvlan
     driver_opts:
       parent: eth0
@@ -22,8 +30,8 @@ services:
     volumes:
       - ${DOCKER_VOLUME_DIR}/cloudflared:/etc/cloudflared
     networks:
-      macvlan_network:
-        ipv4_address: 10.0.10.4
+      macvlan_dmz:
+        ipv4_address: 10.10.20.2
 
   nginx-proxy-manager:
     image: jc21/nginx-proxy-manager:latest
@@ -37,5 +45,5 @@ services:
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/data:/data
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
     networks:
-      macvlan_network:
-        ipv4_address: 10.0.10.5
+      macvlan_internal:
+        ipv4_address: 10.0.10.2
