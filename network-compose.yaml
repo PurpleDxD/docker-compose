@@ -1,9 +1,34 @@
+networks:
+  macvlan_internal:
+    driver: macvlan
+    driver_opts:
+      parent: eth0
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.0.10.0/24
+          gateway: 10.0.10.255
+          ip_range: 10.0.10.6/24
+
+  macvlan_external:
+    driver: macvlan
+    driver_opts:
+      parent: eth1
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.10.20.0/24
+          gateway: 10.10.20.255
+          ip_range: 10.10.20.6/24
+
 services:
   cloudflared-tunnel:
     image: cloudflare/cloudflared
     container_name: cloudflared-tunnel
     restart: unless-stopped
     command: tunnel run
+    networks:
+      - macvlan_external
     environment:
       TUNNEL_TOKEN: ${TOKEN}
       TUNNEL_DNS_UPSTREAM: ${DOH_URL},${DOH_URL_BACKUP}
@@ -18,8 +43,8 @@ services:
     restart: unless-stopped
     depends_on:
       - cloudflared-tunnel
-    ports:
-      - 181:81
+    networks:
+      - macvlan_internal
     volumes:
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/data:/data
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
