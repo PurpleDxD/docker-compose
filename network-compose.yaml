@@ -26,7 +26,8 @@ services:
     restart: unless-stopped
     command: tunnel run
     networks:
-      - macvlan_external
+      macvlan_external:
+        ipv4_address: 10.10.20.51
     environment:
       TUNNEL_TOKEN: ${TOKEN}
       TUNNEL_DNS_UPSTREAM: ${DOH_URL},${DOH_URL_BACKUP}
@@ -42,7 +43,8 @@ services:
     depends_on:
       - cloudflared-tunnel
     networks:
-      - macvlan_internal
+      macvlan_internal:
+        ipv4_address: 10.0.10.51
     volumes:
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/data:/data
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
