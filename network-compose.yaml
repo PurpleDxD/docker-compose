@@ -8,7 +8,7 @@ networks:
       config:
         - subnet: 10.0.10.0/24
           gateway: 10.0.10.1
-          ip_range: 10.0.10.6/24
+          ip_range: 10.0.10.6-10.0.10.253
 
   macvlan_external:
     driver: macvlan
@@ -19,7 +19,7 @@ networks:
       config:
         - subnet: 10.10.20.0/24
           gateway: 10.10.20.1
-          ip_range: 10.10.20.6/24
+          ip_range: 10.10.20.6-10.10.20.253
 
 services:
   cloudflared-tunnel:
