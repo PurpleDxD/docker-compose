@@ -23,7 +23,7 @@ services:
       - ${DOCKER_VOLUME_DIR}/cloudflared:/etc/cloudflared
     networks:
       macvlan_network:
-        ipv4_address: 10.0.10.3
+        ipv4_address: 10.0.10.4
 
   nginx-proxy-manager:
     image: jc21/nginx-proxy-manager:latest
@@ -38,4 +38,4 @@ services:
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
     networks:
       macvlan_network:
-        ipv4_address: 10.0.10.4
+        ipv4_address: 10.0.10.5
