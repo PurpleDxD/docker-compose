@@ -7,7 +7,7 @@ networks:
       driver: default
       config:
         - subnet: 10.0.10.0/24
-          gateway: 10.0.10.255
+          gateway: 10.0.10.1
 
   macvlan_external:
     driver: macvlan
@@ -17,7 +17,7 @@ networks:
       driver: default
       config:
         - subnet: 10.10.20.0/24
-          gateway: 10.10.20.255
+          gateway: 10.10.20.1
 
 services:
   cloudflared-tunnel:
