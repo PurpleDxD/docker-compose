@@ -1,6 +1,6 @@
 networks:
   macvlan_internal:
-    driver: ipvlan
+    driver: macvlan
     driver_opts:
       parent: eth0
     ipam:
@@ -10,7 +10,7 @@ networks:
           gateway: 10.0.10.1
 
   macvlan_external:
-    driver: ipvlan
+    driver: macvlan
     driver_opts:
       parent: eth1
     ipam:
