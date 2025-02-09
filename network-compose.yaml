@@ -33,5 +33,5 @@ services:
       - "10443:443"
       - "1081:81"
     volumes:
-      - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/data:/data
-      - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
+      - ${DOCKER_VOLUME_DIR}/nginx_proxy_manager/data:/data
+      - ${DOCKER_VOLUME_DIR}/nginx_proxy_manager/letsencrypt:/etc/letsencrypt
