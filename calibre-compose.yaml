@@ -1,3 +1,7 @@
+networks:
+  internal_bridge: # docker network create --driver bridge --opt "com.docker.network.bridge.bind_iface=eth0" internal_bridge
+    external: true
+
 services:
   calibre-web:
     image: lscr.io/linuxserver/calibre-web:latest
@@ -7,11 +11,13 @@ services:
       - PGID=0
       - TZ=America/Toronto
       - DOCKER_MODS=linuxserver/mods:universal-calibre
+    networks:
+      - internal_bridge
+    ports:
+      - 28083:8083
     volumes:
       - /root/docker/calibre_web/data:/config
       - /root/docker/calibre_web/library:/books
-    ports:
-      - 8083:8083
     restart: unless-stopped
 
   calibre:
@@ -23,11 +29,13 @@ services:
       - PUID=0
       - PGID=0
       - TZ=America/Toronto
+    networks:
+      - internal_bridge
+    ports:
+      #- 8080:8080
+      - 28181:8181
+      #- 8081:8081
     volumes:
       - /root/docker/calibre/config:/config
       - /root/docker/calibre_web/library:/books
-    ports:
-      #- 8080:8080
-      - 8181:8181
-      #- 8081:8081
     restart: unless-stopped
