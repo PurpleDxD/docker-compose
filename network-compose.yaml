@@ -1,23 +1,8 @@
 networks:
   macvlan_internal:
-    driver: macvlan
-    driver_opts:
-      parent: eth0
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.0.10.0/24
-          gateway: 10.0.10.1
-
+    external: true
   macvlan_external:
-    driver: macvlan
-    driver_opts:
-      parent: eth1
-    ipam:
-      driver: default
-      config:
-        - subnet: 10.10.20.0/24
-          gateway: 10.10.20.1
+    external: true
 
 services:
   cloudflared-tunnel:
