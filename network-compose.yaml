@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
     command: tunnel run
     networks:
-      - back-network
+      - external_bridge
     environment:
       TUNNEL_TOKEN: ${TOKEN}
       TUNNEL_DNS_UPSTREAM: ${DOH_URL},${DOH_URL_BACKUP}
@@ -27,7 +27,7 @@ services:
     depends_on:
       - cloudflared-tunnel
     networks:
-      - front-network
+      - internal_bridge
     volumes:
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/data:/data
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
