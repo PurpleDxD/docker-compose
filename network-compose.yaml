@@ -1,7 +1,7 @@
 networks:
-  internal_bridge:
+  ipvlan_internal:
     external: true
-  external_bridge:
+  ipvlan_external:
     external: true
 
 services:
