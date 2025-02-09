@@ -28,6 +28,8 @@ services:
       - cloudflared-tunnel
     networks:
       - internal_bridge
+    ports:
+      - "8080:80"
     volumes:
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/data:/data
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
