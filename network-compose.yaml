@@ -1,7 +1,7 @@
 networks:
-  internal_bridge:
+  internal_bridge: # docker network create --driver bridge --opt "com.docker.network.bridge.bind_iface=eth0" internal_bridge
     external: true
-  external_bridge:
+  external_bridge: # docker network create --driver bridge --opt "com.docker.network.bridge.bind_iface=eth1" external_bridge
     external: true
 
 services:
