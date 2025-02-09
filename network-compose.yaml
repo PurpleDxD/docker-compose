@@ -1,18 +1,16 @@
-networks:
-  ipvlan_internal:
-    external: true
-  ipvlan_external:
-    external: true
-
 services:
   cloudflared-tunnel:
     image: cloudflare/cloudflared
     container_name: cloudflared-tunnel
     restart: unless-stopped
     command: tunnel run
+    network_mode: host
     networks:
-      - ipvlan_external
+      default:
+        aliases:
+          etho1
     environment:
+      DOCKER_HOST_INTERFACE: eth1
       TUNNEL_TOKEN: ${TOKEN}
       TUNNEL_DNS_UPSTREAM: ${DOH_URL},${DOH_URL_BACKUP}
       TUNNEL_DNS_PORT: 5053
@@ -26,8 +24,13 @@ services:
     restart: unless-stopped
     depends_on:
       - cloudflared-tunnel
+    network_mode: host
     networks:
-      - ipvlan_internal
+      default:
+        aliases:
+          etho0
+    environment:
+      DOCKER_HOST_INTERFACE: eth0
     volumes:
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/data:/data
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
