@@ -1,7 +1,7 @@
 networks:
-  ipvlan_internal:
+  macvlan_internal:
     external: true
-  ipvlan_external:
+  macvlan_external:
     external: true
 
 services:
@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
     command: tunnel run
     networks:
-      - ipvlan_external
+      - macvlan_external
     environment:
       TUNNEL_TOKEN: ${TOKEN}
       TUNNEL_DNS_UPSTREAM: ${DOH_URL},${DOH_URL_BACKUP}
@@ -27,11 +27,7 @@ services:
     depends_on:
       - cloudflared-tunnel
     networks:
-      - ipvlan_internal
-    ports:
-      - "80:80"
-      - "443:443"
-      - "81:81"
+      - macvlan_internal
     volumes:
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/data:/data
       - ${DOCKER_VOLUME_DIR}/nginx-proxy-manager/letsencrypt:/etc/letsencrypt
