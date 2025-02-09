@@ -11,7 +11,7 @@ services:
     restart: unless-stopped
     command: tunnel run
     networks:
-      - external_bridge
+      - ipvlan_external
     environment:
       TUNNEL_TOKEN: ${TOKEN}
       TUNNEL_DNS_UPSTREAM: ${DOH_URL},${DOH_URL_BACKUP}
@@ -27,7 +27,7 @@ services:
     depends_on:
       - cloudflared-tunnel
     networks:
-      - internal_bridge
+      - ipvlan_internal
     ports:
       - "80:80"
       - "443:443"
