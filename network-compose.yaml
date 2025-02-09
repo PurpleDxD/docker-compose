@@ -29,9 +29,9 @@ services:
     networks:
       - internal_bridge
     ports:
-      - "1080:80"
-      - "10443:443"
-      - "1081:81"
+      - "180:80"
+      - "1443:443"
+      - "181:81"
     volumes:
       - ${DOCKER_VOLUME_DIR}/nginx_proxy_manager/data:/data
       - ${DOCKER_VOLUME_DIR}/nginx_proxy_manager/letsencrypt:/etc/letsencrypt
