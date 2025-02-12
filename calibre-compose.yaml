@@ -16,8 +16,8 @@ services:
     ports:
       - 28083:8083
     volumes:
-      - /root/docker/calibre_web/data:/config
-      - /root/docker/calibre_web/library:/books
+      - ${DOCKER_VOLUME_DIR}/calibre_web/data:/config
+      - ${DOCKER_VOLUME_DIR}/calibre_web/library:/books
     restart: unless-stopped
 
   calibre:
@@ -36,6 +36,6 @@ services:
       - 28181:8181
       #- 8081:8081
     volumes:
-      - /root/docker/calibre/config:/config
-      - /root/docker/calibre_web/library:/books
+      - ${DOCKER_VOLUME_DIR}/calibre/config:/config
+      - ${DOCKER_VOLUME_DIR}/calibre_web/library:/books
     restart: unless-stopped
