@@ -1,0 +1,16 @@
+networks:
+  internal_bridge: # docker network create --driver bridge --opt "com.docker.network.bridge.bind_iface=eth0" internal_bridge
+    external: true
+
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    ports:
+      - 7576:3000
+    networks:
+      - internal_bridge
+    volumes:
+      - ${DOCKER_VOLUME_DIR}/homepage/config:/app/config
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    restart: unless-stopped
